@@ -1,0 +1,70 @@
+﻿using GestaoPatrimonios.Applications.Services;
+using GestaoPatrimonios.DTOs.BairroDto;
+using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+
+namespace GestaoPatrimonios.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BairroController : ControllerBase
+    {
+        private readonly BairroService _service;
+
+        public BairroController(BairroService service)
+        {
+            _service = service;
+        }
+
+        [HttpGet]
+        public ActionResult<List<ListarBairroDto>> Listar()
+        {
+            List<ListarBairroDto> bairros = _service.Listar();
+
+            return Ok(bairros);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ListarBairroDto> BuscarPorId(Guid id)
+        {
+            try
+            {
+                ListarBairroDto cidade = _service.BuscarPorId(id);
+
+                return Ok(cidade);
+            }
+            catch (DomainException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Adicionar(CriarBairroDto dto)
+        {
+            try
+            {
+                _service.Adicionar(dto);
+                return Created();
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Atualizar(Guid id, CriarBairroDto dto)
+        {
+            try
+            {
+                _service.Atualizar(id, dto);
+                return NoContent();
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    }
+}

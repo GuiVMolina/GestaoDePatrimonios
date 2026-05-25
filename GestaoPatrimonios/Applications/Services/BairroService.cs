@@ -1,6 +1,6 @@
 ﻿using GestaoPatrimonios.Applications.Regras;
 using GestaoPatrimonios.Domains;
-using GestaoPatrimonios.DTOs.BairroDto;
+using GestaoPatrimonios.DTOs.Bairro;
 using GestaoPatrimonios.Exceptions;
 using GestaoPatrimonios.Interfaces;
 
@@ -17,9 +17,11 @@ namespace GestaoPatrimonios.Applications.Services
 
         public List<ListarBairroDto> Listar()
         {
-           List<Bairro> bairros = _repository.Listar();
+            List<Bairro> bairros = _repository.Listar();
+
             List<ListarBairroDto> bairrosDto = bairros.Select(bairro => new ListarBairroDto
             {
+                BairroID = bairro.BairroID,
                 NomeBairro = bairro.NomeBairro,
                 CidadeID = bairro.CidadeID
             }).ToList();
@@ -33,16 +35,15 @@ namespace GestaoPatrimonios.Applications.Services
 
             if (bairro == null)
             {
-                throw new DomainException("Bairro não encontrado");
+                throw new DomainException("Bairro não encontrado.");
             }
-            
-            ListarBairroDto bairrosDto = new ListarBairroDto
+
+            return new ListarBairroDto
             {
+                BairroID = bairro.BairroID,
                 NomeBairro = bairro.NomeBairro,
                 CidadeID = bairro.CidadeID
             };
-
-            return bairrosDto;
         }
 
         public void Adicionar(CriarBairroDto dto)
@@ -51,14 +52,14 @@ namespace GestaoPatrimonios.Applications.Services
 
             Bairro bairroExistente = _repository.BuscarPorNome(dto.NomeBairro, dto.CidadeID);
 
-            if (bairroExistente == null)
+            if (bairroExistente != null)
             {
-                throw new DomainException("Já existe um bairro cadastrado com esse nome nessa cidade");
+                throw new DomainException("Já existe um bairro com esse nome nessa cidade.");
             }
 
             if (!_repository.CidadeExiste(dto.CidadeID))
             {
-                throw new DomainException("Cidade informada não existe");
+                throw new DomainException("Cidade informada não existe.");
             }
 
             Bairro bairro = new Bairro
@@ -75,21 +76,22 @@ namespace GestaoPatrimonios.Applications.Services
             Validar.ValidarNome(dto.NomeBairro);
 
             Bairro bairroBanco = _repository.BuscarPorId(bairroId);
+
             if (bairroBanco == null)
             {
-                throw new DomainException("Bairro não encontrado");
+                throw new DomainException("Bairro não encontrado.");
             }
 
             Bairro bairroExistente = _repository.BuscarPorNome(dto.NomeBairro, dto.CidadeID);
 
-            if (bairroExistente == null)
+            if (bairroExistente != null && bairroExistente.BairroID != bairroId)
             {
-                throw new DomainException("Já existe um bairro cadastrado com esse nome nessa cidade");
+                throw new DomainException("Já existe um bairro com esse nome nessa cidade.");
             }
 
             if (!_repository.CidadeExiste(dto.CidadeID))
             {
-                throw new DomainException("Cidade informada não existe");
+                throw new DomainException("Cidade informada não existe.");
             }
 
             bairroBanco.NomeBairro = dto.NomeBairro;

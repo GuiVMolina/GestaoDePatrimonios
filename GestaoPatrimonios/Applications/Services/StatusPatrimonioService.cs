@@ -17,15 +17,15 @@ namespace GestaoPatrimonios.Applications.Services
 
         public List<ListarStatusPatrimonioDto> Listar()
         {
-            List<StatusPatrimonio> statusPatrimonios = _repository.Listar();
+            List<StatusPatrimonio> statusPatrimonio = _repository.Listar();
 
-            List<ListarStatusPatrimonioDto> statusDto = statusPatrimonios.Select(statusPatrimonio => new ListarStatusPatrimonioDto
+            List<ListarStatusPatrimonioDto> statusPatrimonioDto = statusPatrimonio.Select(status => new ListarStatusPatrimonioDto
             {
-                StatusPatrimonioID = statusPatrimonio.StatusPatrimonioID,
-                NomeStatus = statusPatrimonio.NomeStatus
+                StatusPatrimonioID = status.StatusPatrimonioID,
+                NomeStatus = status.NomeStatus
             }).ToList();
 
-            return statusDto;
+            return statusPatrimonioDto;
         }
 
         public ListarStatusPatrimonioDto BuscarPorId(Guid statusPatrimonioId)
@@ -34,27 +34,27 @@ namespace GestaoPatrimonios.Applications.Services
 
             if (statusPatrimonio == null)
             {
-                throw new DomainException("Status de patrimônio não encontrado");
+                throw new DomainException("Status de patrimônio não encontrado.");
             }
 
-            ListarStatusPatrimonioDto statusDto = new ListarStatusPatrimonioDto
+            ListarStatusPatrimonioDto statusPatrimonioDto = new ListarStatusPatrimonioDto
             {
                 StatusPatrimonioID = statusPatrimonio.StatusPatrimonioID,
                 NomeStatus = statusPatrimonio.NomeStatus
             };
 
-            return statusDto;
+            return statusPatrimonioDto;
         }
 
         public void Adicionar(CriarStatusPatrimonioDto dto)
         {
             Validar.ValidarNome(dto.NomeStatus);
 
-            StatusPatrimonio statusPatrimonioExistente = _repository.BuscarPorNome(dto.NomeStatus);
+            StatusPatrimonio statusExistente = _repository.BuscarPorNome(dto.NomeStatus);
 
-            if (statusPatrimonioExistente == null)
+            if (statusExistente != null)
             {
-                throw new DomainException("Já existe um status de patrimônio com esse nome");
+                throw new DomainException("Já existe um status de patrimônio cadastrado com esse nome.");
             }
 
             StatusPatrimonio statusPatrimonio = new StatusPatrimonio
@@ -69,23 +69,23 @@ namespace GestaoPatrimonios.Applications.Services
         {
             Validar.ValidarNome(dto.NomeStatus);
 
-            StatusPatrimonio statusPatrimonioBanco = _repository.BuscarPorId(statusPatrimonioId);
+            StatusPatrimonio statusBanco = _repository.BuscarPorId(statusPatrimonioId);
 
-            if (statusPatrimonioBanco == null)
+            if (statusBanco == null)
             {
-                throw new DomainException("Status de patrimônio não encontrado");
+                throw new DomainException("Status de patrimônio não encontrado.");
             }
 
-            StatusPatrimonio statusPatrimonioExistente = _repository.BuscarPorNome(dto.NomeStatus);
+            StatusPatrimonio statusExistente = _repository.BuscarPorNome(dto.NomeStatus);
 
-            if (statusPatrimonioExistente == null)
+            if (statusExistente != null)
             {
-                throw new DomainException("Já existe um status de patrimônio com esse nome");
+                throw new DomainException("Já existe um status de patrimônio cadastrado com esse nome.");
             }
 
-            statusPatrimonioBanco.NomeStatus = dto.NomeStatus;
+            statusBanco.NomeStatus = dto.NomeStatus;
 
-            _repository.Atualizar(statusPatrimonioBanco);
+            _repository.Atualizar(statusBanco);
         }
     }
 }

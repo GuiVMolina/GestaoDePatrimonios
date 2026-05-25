@@ -7,9 +7,9 @@ public partial class Localizacao
 {
     public Guid LocalizacaoID { get; set; }
 
-    public int? LocalSAP { get; set; }
+    public string NomeLocal { get; set; } = null!;
 
-    public string? NomeLocal { get; set; }
+    public int? LocalSAP { get; set; }
 
     public string? DescricaoSAP { get; set; }
 

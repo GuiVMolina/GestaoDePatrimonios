@@ -34,7 +34,7 @@ namespace GestaoPatrimonios.Applications.Services
 
             if (cargo == null)
             {
-                throw new DomainException("Cargo não encontrado");
+                throw new DomainException("Cargo não encontrado.");
             }
 
             ListarCargoDto cargoDto = new ListarCargoDto
@@ -54,7 +54,7 @@ namespace GestaoPatrimonios.Applications.Services
 
             if (cargoExistente != null)
             {
-                throw new DomainException("Já existe um cargo cadastrado com esse nome");
+                throw new DomainException("Já existe um cargo cadastrado com esse nome.");
             }
 
             Cargo cargo = new Cargo
@@ -73,14 +73,14 @@ namespace GestaoPatrimonios.Applications.Services
 
             if (cargoBanco == null)
             {
-                throw new DomainException("Cargo não encontrado");
+                throw new DomainException("Cargo não encontrado.");
             }
 
             Cargo cargoExistente = _repository.BuscarPorNome(dto.NomeCargo);
 
-            if (cargoExistente != null)
+            if (cargoExistente != null && cargoExistente.CargoID != cargoId)
             {
-                throw new DomainException("Já existe um cargo cadastrado com esse nome");
+                throw new DomainException("Já existe um cargo cadastrado com esse nome.");
             }
 
             cargoBanco.NomeCargo = dto.NomeCargo;

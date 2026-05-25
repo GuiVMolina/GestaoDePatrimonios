@@ -18,7 +18,8 @@ namespace GestaoPatrimonios.Repositories
             return _context.Area.OrderBy(area => area.NomeArea).ToList();
         }
 
-        public Area BuscarPorId(Guid areaId) {
+        public Area BuscarPorId(Guid areaId)
+        {
             return _context.Area.Find(areaId);
         }
 
@@ -35,12 +36,19 @@ namespace GestaoPatrimonios.Repositories
 
         public void Atualizar(Area area)
         {
-            if(area == null) {  return; }
+            if(area == null)
+            {
+                return;
+            }
 
             Area areaBanco = _context.Area.Find(area.AreaID);
 
-            areaBanco.NomeArea = area.NomeArea;
+            if (area == null)
+            {
+                return;
+            }
 
+            areaBanco.NomeArea = area.NomeArea;
             _context.SaveChanges();
         }
     }

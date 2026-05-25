@@ -1,5 +1,6 @@
 ﻿using GestaoPatrimonios.Applications.Regras;
 using GestaoPatrimonios.Domains;
+using GestaoPatrimonios.DTOs.AreaDto;
 using GestaoPatrimonios.DTOs.CidadeDto;
 using GestaoPatrimonios.Exceptions;
 using GestaoPatrimonios.Interfaces;
@@ -17,28 +18,34 @@ namespace GestaoPatrimonios.Applications.Services
 
         public List<ListarCidadeDto> Listar()
         {
+            List<Cidade> areas = _repository.Listar();
+
             List<Cidade> cidades = _repository.Listar();
 
             List<ListarCidadeDto> cidadesDto = cidades.Select(cidade => new ListarCidadeDto
             {
-                NomeCidade = cidade.NomeCidade
-
+                CidadeID = cidade.CidadeID,
+                NomeCidade = cidade.NomeCidade,
+                Estado = cidade.Estado
             }).ToList();
 
             return cidadesDto;
         }
 
-        public ListarCidadeDto BuscarPorId(Guid cidadeId) {
-            Cidade cidade = _repository.BuscarPorId(cidadeId);
+        public ListarCidadeDto BuscarPorId(Guid cidadeId)
+        {
+            Cidade? cidade = _repository.BuscarPorId(cidadeId);
 
-            if (cidade == null) {
-                throw new DomainException("Cidade não encontrada");
+            if (cidade == null)
+            {
+                throw new DomainException("Cidade não encontrada.");
             }
 
             ListarCidadeDto cidadeDto = new ListarCidadeDto
             {
                 CidadeID = cidade.CidadeID,
-                NomeCidade = cidade.NomeCidade
+                NomeCidade = cidade.NomeCidade,
+                Estado = cidade.Estado
             };
 
             return cidadeDto;
@@ -47,44 +54,47 @@ namespace GestaoPatrimonios.Applications.Services
         public void Adicionar(CriarCidadeDto dto)
         {
             Validar.ValidarNome(dto.NomeCidade);
+            Validar.ValidarEstado(dto.Estado);
 
-            Cidade cidadeExistente = _repository.BuscarPorNomeEstado(dto.NomeCidade, dto.Estado);
+            Cidade? cidadeExistente = _repository.BuscarPorNomeEEstado(dto.NomeCidade, dto.Estado);
 
-            if (cidadeExistente == null)
+            if (cidadeExistente != null)
             {
-                throw new DomainException("Já existe um cidade cadastrado com esse nome nessa área");
+                throw new DomainException("Já existe uma cidade cadastrada com esse nome nesse estado.");
             }
 
-            Cidade cidadeizacao = new Cidade
+            Cidade cidade = new Cidade
             {
                 NomeCidade = dto.NomeCidade,
                 Estado = dto.Estado
             };
 
-            _repository.Adicionar(cidadeizacao);
+            _repository.Adicionar(cidade);
         }
 
         public void Atualizar(Guid cidadeId, CriarCidadeDto dto)
         {
             Validar.ValidarNome(dto.NomeCidade);
+            Validar.ValidarEstado(dto.Estado);
 
-            Cidade cidadeizacaoBanco = _repository.BuscarPorId(cidadeId);
-            if (cidadeizacaoBanco == null)
+            Cidade? cidadeBanco = _repository.BuscarPorId(cidadeId);
+
+            if (cidadeBanco == null)
             {
-                throw new DomainException("Localização não encontrada");
+                throw new DomainException("Cidade não encontrada.");
             }
 
-            Cidade cidadeExistente = _repository.BuscarPorNomeEstado(dto.NomeCidade, dto.Estado);
+            Cidade? cidadeExistente = _repository.BuscarPorNomeEEstado(dto.NomeCidade, dto.Estado);
 
-            if (cidadeExistente == null)
+            if (cidadeExistente != null && cidadeExistente.CidadeID != cidadeId)
             {
-                throw new DomainException("Já existe um cidade cadastrado com esse nome nessa área");
+                throw new DomainException("Já existe uma cidade cadastrada com esse nome nesse estado.");
             }
 
-            cidadeizacaoBanco.NomeCidade = dto.NomeCidade;
-            cidadeizacaoBanco.Estado = dto.Estado;
+            cidadeBanco.NomeCidade = dto.NomeCidade;
+            cidadeBanco.Estado = dto.Estado;
 
-            _repository.Atualizar(cidadeizacaoBanco);
+            _repository.Atualizar(cidadeBanco);
         }
     }
 }

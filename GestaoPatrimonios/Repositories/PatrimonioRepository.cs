@@ -1,5 +1,6 @@
 ﻿using GestaoPatrimonios.Contexts;
 using GestaoPatrimonios.Domains;
+using GestaoPatrimonios.DTOs.PatrimonioDto;
 using GestaoPatrimonios.Interfaces;
 
 namespace GestaoPatrimonios.Repositories
@@ -15,7 +16,7 @@ namespace GestaoPatrimonios.Repositories
 
         public List<Patrimonio> Listar()
         {
-            return _context.Patrimonio.OrderBy(patrimonio => patrimonio.NumeroPatrimonio).ToList();
+            return _context.Patrimonio.OrderBy(patrimonio => patrimonio.Denominacao).ToList();
         }
 
         public Patrimonio BuscarPorId(Guid patrimonioId)
@@ -23,24 +24,34 @@ namespace GestaoPatrimonios.Repositories
             return _context.Patrimonio.Find(patrimonioId);
         }
 
-        public Patrimonio BuscarPorNumeroPatrimonio(string numeroPatrimonio, Guid? patrimonioId = null)
+        public bool BuscarPorNumeroPatrimonio(string numeroPatrimonio)
         {
-            return _context.Patrimonio.FirstOrDefault(patrimonio => patrimonio.NumeroPatrimonio == numeroPatrimonio && patrimonio.PatrimonioID == patrimonioId);
+            return _context.Patrimonio.Any(patrimonio => patrimonio.NumeroPatrimonio == numeroPatrimonio);
         }
 
         public bool LocalizacaoExiste(Guid localizacaoId)
         {
-            return _context.Patrimonio.Any(localizacao => localizacao.LocalID == localizacaoId);
-        }
-
-        public bool TipoPatrimonioExiste(Guid tipoPatrimonioId)
-        {
-            return _context.Patrimonio.Any(tipoPatrimonio => tipoPatrimonio.TipoPatrimonioID == tipoPatrimonioId);
+            return _context.Localizacao.Any(localizacao => localizacao.LocalizacaoID == localizacaoId);
         }
 
         public bool StatusPatrimonioExiste(Guid statusPatrimonioId)
         {
-            return _context.Patrimonio.Any(statusPatrimonio => statusPatrimonio.StatusPatrimonioID == statusPatrimonioId);
+            return _context.StatusPatrimonio.Any(status => status.StatusPatrimonioID == statusPatrimonioId);
+        }
+
+        public Localizacao BuscarLocalizacaoPorNome(string nomeLocalizacao)
+        {
+            return _context.Localizacao.FirstOrDefault(localizacao => localizacao.NomeLocal.ToLower() == nomeLocalizacao.ToLower());
+        }
+
+        public StatusPatrimonio BuscarStatusPatrimonioPorNome(string nomeStatus)
+        {
+            return _context.StatusPatrimonio.FirstOrDefault(status => status.NomeStatus.ToLower() == nomeStatus.ToLower());
+        }
+
+        public TipoAlteracao BuscarTipoAlteracaoPorNome(string nomeTipo)
+        {
+            return _context.TipoAlteracao.FirstOrDefault(tipo => tipo.NomeTipo.ToLower() == nomeTipo.ToLower());
         }
 
         public void Adicionar(Patrimonio patrimonio)
@@ -49,36 +60,28 @@ namespace GestaoPatrimonios.Repositories
             _context.SaveChanges();
         }
 
-        public void Atualizar(Patrimonio patrimonio)
+        public void AtualizarStatus(Patrimonio patrimonio)
         {
-            if (patrimonio == null) { return; }
+            if (patrimonio == null)
+            {
+                return;
+            }
 
             Patrimonio patrimonioBanco = _context.Patrimonio.Find(patrimonio.PatrimonioID);
 
-            if (patrimonioBanco == null) { return; }
+            if (patrimonioBanco == null)
+            {
+                return;
+            }
 
-            patrimonioBanco.NumeroSerie = patrimonio.NumeroSerie;
-            patrimonioBanco.NumeroPatrimonio = patrimonio.NumeroPatrimonio;
-            patrimonioBanco.Imagem = patrimonio.Imagem;
-            patrimonioBanco.Denominacao = patrimonio.Denominacao;
-            patrimonioBanco.Valor = patrimonio.Valor;
-            patrimonioBanco.LocalID = patrimonio.LocalID;
-            patrimonioBanco.TipoPatrimonioID = patrimonio.TipoPatrimonioID;
             patrimonioBanco.StatusPatrimonioID = patrimonio.StatusPatrimonioID;
 
             _context.SaveChanges();
         }
 
-        public void AtualizarStatus(Patrimonio patrimonio)
+        public void AdicionarLog(LogPatrimonio logPatrimonio)
         {
-            if (patrimonio == null) { return; }
-
-            Patrimonio patrimonioBanco = _context.Patrimonio.Find(patrimonio.PatrimonioID);
-
-            if (patrimonioBanco == null) { return; }
-
-            patrimonioBanco.Ativo = patrimonio.Ativo;
-
+            _context.LogPatrimonio.Add(logPatrimonio);
             _context.SaveChanges();
         }
     }

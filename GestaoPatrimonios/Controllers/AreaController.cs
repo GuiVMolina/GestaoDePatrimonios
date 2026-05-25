@@ -1,6 +1,7 @@
 ﻿using GestaoPatrimonios.Applications.Services;
-using GestaoPatrimonios.DTOs.AreaDTO;
+using GestaoPatrimonios.DTOs.AreaDto;
 using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoPatrimonios.Controllers
@@ -27,7 +28,8 @@ namespace GestaoPatrimonios.Controllers
         [HttpGet("{id}")]
         public ActionResult<ListarAreaDto> BuscarPorId(Guid id)
         {
-            try {
+            try
+            {
                 ListarAreaDto area = _service.BuscarPorId(id);
 
                 return Ok(area);
@@ -48,7 +50,7 @@ namespace GestaoPatrimonios.Controllers
             }
             catch (DomainException ex)
             {
-               return BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -60,7 +62,7 @@ namespace GestaoPatrimonios.Controllers
                 _service.Atualizar(id, dto);
                 return NoContent();
             }
-            catch (DomainException ex)
+            catch(DomainException ex)
             {
                 return BadRequest(ex.Message);
             }

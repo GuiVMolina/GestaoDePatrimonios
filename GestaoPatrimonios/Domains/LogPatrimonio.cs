@@ -9,17 +9,17 @@ public partial class LogPatrimonio
 
     public DateTime DataTransferencia { get; set; }
 
-    public Guid LocalID { get; set; }
-
-    public Guid UsuarioID { get; set; }
-
-    public Guid PatrimonioID { get; set; }
-
     public Guid TipoAlteracaoID { get; set; }
 
     public Guid StatusPatrimonioID { get; set; }
 
-    public virtual Localizacao Local { get; set; } = null!;
+    public Guid PatrimonioID { get; set; }
+
+    public Guid UsuarioID { get; set; }
+
+    public Guid LocalizacaoID { get; set; }
+
+    public virtual Localizacao Localizacao { get; set; } = null!;
 
     public virtual Patrimonio Patrimonio { get; set; } = null!;
 

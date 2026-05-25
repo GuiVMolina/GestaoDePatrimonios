@@ -12,9 +12,12 @@ namespace GestaoPatrimonios.Repositories
         {
             _context = context;
         }
+
         public List<Cargo> Listar()
         {
-            return _context.Cargo.OrderBy(cargo => cargo.NomeCargo).ToList();
+            return _context.Cargo
+                .OrderBy(cargo => cargo.NomeCargo)
+                .ToList();
         }
 
         public Cargo BuscarPorId(Guid cargoId)
@@ -35,9 +38,17 @@ namespace GestaoPatrimonios.Repositories
 
         public void Atualizar(Cargo cargo)
         {
-            if(cargo == null) { return; }
+            if (cargo == null)
+            {
+                return;
+            }
 
             Cargo cargoBanco = _context.Cargo.Find(cargo.CargoID);
+
+            if (cargoBanco == null)
+            {
+                return;
+            }
 
             cargoBanco.NomeCargo = cargo.NomeCargo;
 

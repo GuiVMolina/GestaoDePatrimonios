@@ -1,6 +1,7 @@
 ﻿using GestaoPatrimonios.Applications.Services;
 using GestaoPatrimonios.DTOs.CargoDto;
 using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,6 @@ namespace GestaoPatrimonios.Controllers
         public ActionResult<List<ListarCargoDto>> Listar()
         {
             List<ListarCargoDto> cargos = _service.Listar();
-
             return Ok(cargos);
         }
 
@@ -31,23 +31,22 @@ namespace GestaoPatrimonios.Controllers
             try
             {
                 ListarCargoDto cargo = _service.BuscarPorId(id);
-
                 return Ok(cargo);
             }
             catch (DomainException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 
         [HttpPost]
+        [Authorize(Roles = "Coordenador")]
         public ActionResult Adicionar(CriarCargoDto dto)
         {
             try
             {
                 _service.Adicionar(dto);
-
-                return Ok(dto);
+                return Created();
             }
             catch (DomainException ex)
             {
@@ -55,13 +54,13 @@ namespace GestaoPatrimonios.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Coordenador")]
         public ActionResult Atualizar(Guid id, CriarCargoDto dto)
         {
             try
             {
                 _service.Atualizar(id, dto);
-
                 return NoContent();
             }
             catch (DomainException ex)

@@ -1,6 +1,7 @@
 ﻿using GestaoPatrimonios.Applications.Services;
 using GestaoPatrimonios.DTOs.StatusPatrimonioDto;
 using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoPatrimonios.Controllers
@@ -19,9 +20,8 @@ namespace GestaoPatrimonios.Controllers
         [HttpGet]
         public ActionResult<List<ListarStatusPatrimonioDto>> Listar()
         {
-            List<ListarStatusPatrimonioDto> statusPatrimonios = _service.Listar();
-
-            return Ok(statusPatrimonios);
+            List<ListarStatusPatrimonioDto> statusPatrimonio = _service.Listar();
+            return Ok(statusPatrimonio);
         }
 
         [HttpGet("{id}")]
@@ -30,12 +30,11 @@ namespace GestaoPatrimonios.Controllers
             try
             {
                 ListarStatusPatrimonioDto statusPatrimonio = _service.BuscarPorId(id);
-
                 return Ok(statusPatrimonio);
             }
             catch (DomainException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 
@@ -45,7 +44,6 @@ namespace GestaoPatrimonios.Controllers
             try
             {
                 _service.Adicionar(dto);
-
                 return Created();
             }
             catch (DomainException ex)
@@ -54,13 +52,12 @@ namespace GestaoPatrimonios.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult Atualizar(Guid id, CriarStatusPatrimonioDto dto)
         {
             try
             {
                 _service.Atualizar(id, dto);
-
                 return NoContent();
             }
             catch (DomainException ex)

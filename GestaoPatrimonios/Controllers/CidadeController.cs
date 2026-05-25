@@ -1,6 +1,8 @@
 ﻿using GestaoPatrimonios.Applications.Services;
+using GestaoPatrimonios.DTOs.AreaDto;
 using GestaoPatrimonios.DTOs.CidadeDto;
 using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoPatrimonios.Controllers
@@ -11,7 +13,8 @@ namespace GestaoPatrimonios.Controllers
     {
         private readonly CidadeService _service;
 
-        public CidadeController(CidadeService service) {
+        public CidadeController(CidadeService service)
+        {
             _service = service;
         }
 
@@ -19,7 +22,6 @@ namespace GestaoPatrimonios.Controllers
         public ActionResult<List<ListarCidadeDto>> Listar()
         {
             List<ListarCidadeDto> cidades = _service.Listar();
-
             return Ok(cidades);
         }
 
@@ -29,7 +31,6 @@ namespace GestaoPatrimonios.Controllers
             try
             {
                 ListarCidadeDto cidade = _service.BuscarPorId(id);
-
                 return Ok(cidade);
             }
             catch (DomainException ex)
@@ -44,7 +45,7 @@ namespace GestaoPatrimonios.Controllers
             try
             {
                 _service.Adicionar(dto);
-                return Created();
+                return NoContent();
             }
             catch (DomainException ex)
             {

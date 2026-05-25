@@ -1,6 +1,7 @@
 ﻿using GestaoPatrimonios.Applications.Services;
-using GestaoPatrimonios.DTOs.BairroDto;
+using GestaoPatrimonios.DTOs.Bairro;
 using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoPatrimonios.Controllers
@@ -19,9 +20,7 @@ namespace GestaoPatrimonios.Controllers
         [HttpGet]
         public ActionResult<List<ListarBairroDto>> Listar()
         {
-            List<ListarBairroDto> bairros = _service.Listar();
-
-            return Ok(bairros);
+            return Ok(_service.Listar());
         }
 
         [HttpGet("{id}")]
@@ -29,9 +28,7 @@ namespace GestaoPatrimonios.Controllers
         {
             try
             {
-                ListarBairroDto cidade = _service.BuscarPorId(id);
-
-                return Ok(cidade);
+                return Ok(_service.BuscarPorId(id));
             }
             catch (DomainException ex)
             {

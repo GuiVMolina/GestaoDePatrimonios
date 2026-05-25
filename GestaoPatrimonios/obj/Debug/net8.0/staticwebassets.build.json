@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "7+jhPHDVGNS+0ak0Uk52thiL2HGM1zxbAEdXCTcu4G0=",
-  "Source": "GestaoPatrimonios",
-  "BasePath": "_content/GestaoPatrimonios",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"OBfHr6skb2CBYyngVD34xiOYFJw+0mGs+uC1mHSeeyk=","Source":"GestaoPatrimonios","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

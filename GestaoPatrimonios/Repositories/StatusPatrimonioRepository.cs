@@ -15,7 +15,9 @@ namespace GestaoPatrimonios.Repositories
 
         public List<StatusPatrimonio> Listar()
         {
-            return _context.StatusPatrimonio.OrderBy(statusPatrimonio => statusPatrimonio.NomeStatus).ToList();
+            return _context.StatusPatrimonio
+                .OrderBy(status => status.NomeStatus)
+                .ToList();
         }
 
         public StatusPatrimonio BuscarPorId(Guid statusPatrimonioId)
@@ -25,7 +27,7 @@ namespace GestaoPatrimonios.Repositories
 
         public StatusPatrimonio BuscarPorNome(string nomeStatus)
         {
-            return _context.StatusPatrimonio.FirstOrDefault(statusPatrimonio => statusPatrimonio.NomeStatus.ToLower() == nomeStatus.ToLower());
+            return _context.StatusPatrimonio.FirstOrDefault(status => status.NomeStatus.ToLower() == nomeStatus.ToLower());
         }
 
         public void Adicionar(StatusPatrimonio statusPatrimonio)
@@ -36,11 +38,19 @@ namespace GestaoPatrimonios.Repositories
 
         public void Atualizar(StatusPatrimonio statusPatrimonio)
         {
-            if (statusPatrimonio == null) { return; }
+            if (statusPatrimonio == null)
+            {
+                return;
+            }
 
-            StatusPatrimonio tipoBanco = _context.StatusPatrimonio.Find(statusPatrimonio.StatusPatrimonioID);
+            StatusPatrimonio statusBanco = _context.StatusPatrimonio.Find(statusPatrimonio.StatusPatrimonioID);
 
-            tipoBanco.NomeStatus = statusPatrimonio.NomeStatus;
+            if (statusBanco == null)
+            {
+                return;
+            }
+
+            statusBanco.NomeStatus = statusPatrimonio.NomeStatus;
 
             _context.SaveChanges();
         }

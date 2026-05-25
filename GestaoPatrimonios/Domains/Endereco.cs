@@ -7,13 +7,13 @@ public partial class Endereco
 {
     public Guid EnderecoID { get; set; }
 
+    public string Logradouro { get; set; } = null!;
+
     public int? Numero { get; set; }
 
     public string? Complemento { get; set; }
 
     public string? CEP { get; set; }
-
-    public string Logradouro { get; set; } = null!;
 
     public Guid BairroID { get; set; }
 

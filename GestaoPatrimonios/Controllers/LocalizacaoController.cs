@@ -1,6 +1,7 @@
 ﻿using GestaoPatrimonios.Applications.Services;
 using GestaoPatrimonios.DTOs.LocalizacaoDto;
 using GestaoPatrimonios.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoPatrimonios.Controllers
@@ -37,6 +38,11 @@ namespace GestaoPatrimonios.Controllers
             }
         }
 
+
+
+        /// <summary>
+        /// Mensagem
+        /// </summary>
         [HttpPost]
         public ActionResult Adicionar(CriarLocalizacaoDto dto)
         {
@@ -45,9 +51,8 @@ namespace GestaoPatrimonios.Controllers
                 _service.Adicionar(dto);
                 return Created();
             }
-            catch (DomainException ex) 
-            {
-                return BadRequest(ex.Message);
+            catch (DomainException ex) {
+                 return BadRequest(ex.Message);
             }
         }
 

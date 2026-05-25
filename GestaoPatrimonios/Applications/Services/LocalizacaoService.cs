@@ -18,12 +18,14 @@ namespace GestaoPatrimonios.Applications.Services
         public List<ListarLocalizacaoDto> Listar()
         {
             List<Localizacao> localizacoes = _repository.Listar();
-            List<ListarLocalizacaoDto> localizacoesDto = localizacoes.Select(local => new ListarLocalizacaoDto{
-                LocalizacaoID = local.LocalizacaoID,
-                NomeLocal = local.NomeLocal,
-                LocalSAP = local.LocalSAP,
-                DescricaoSAP = local.DescricaoSAP,
-                AreaID = local.AreaID
+
+            List<ListarLocalizacaoDto> localizacoesDto = localizacoes.Select(localizacao => new ListarLocalizacaoDto
+            {
+                LocalizacaoID = localizacao.LocalizacaoID,
+                NomeLocal = localizacao.NomeLocal,
+                LocalSAP = localizacao.LocalSAP,
+                DescricaoSAP = localizacao.DescricaoSAP,
+                AreaID = localizacao.AreaID
             }).ToList();
 
             return localizacoesDto;
@@ -33,12 +35,12 @@ namespace GestaoPatrimonios.Applications.Services
         {
             Localizacao localizacao = _repository.BuscarPorId(localizacaoId);
 
-            if (localizacao == null)
+            if(localizacao == null)
             {
                 throw new DomainException("Localização não encontrada");
             }
 
-            ListarLocalizacaoDto localizacoesDto = new ListarLocalizacaoDto
+            ListarLocalizacaoDto localizacaoDto = new ListarLocalizacaoDto
             {
                 LocalizacaoID = localizacao.LocalizacaoID,
                 NomeLocal = localizacao.NomeLocal,
@@ -47,7 +49,7 @@ namespace GestaoPatrimonios.Applications.Services
                 AreaID = localizacao.AreaID
             };
 
-            return localizacoesDto;
+            return localizacaoDto;
         }
 
         public void Adicionar(CriarLocalizacaoDto dto)
@@ -56,22 +58,22 @@ namespace GestaoPatrimonios.Applications.Services
 
             Localizacao localExistente = _repository.BuscarPorNome(dto.NomeLocal, dto.AreaID);
 
-            if (localExistente == null)
+            if (localExistente != null)
             {
-                throw new DomainException("Já existe um local cadastrado com esse nome nessa área");
+                throw new DomainException("Já existe uma local cadastrado com esse nome nessa área.");
             }
 
             if (!_repository.AreaExiste(dto.AreaID))
             {
-                throw new DomainException("Área informada não existe");
+                throw new DomainException("Área informada não existe.");
             }
 
             Localizacao localizacao = new Localizacao
             {
-               NomeLocal = dto.NomeLocal,
-               LocalSAP = dto.LocalSAP,
-               DescricaoSAP = dto.DescricaoSAP,
-               AreaID = dto.AreaID
+                NomeLocal = dto.NomeLocal,
+                LocalSAP = dto.LocalSAP,
+                DescricaoSAP = dto.DescricaoSAP,
+                AreaID = dto.AreaID
             };
 
             _repository.Adicionar(localizacao);
@@ -82,21 +84,22 @@ namespace GestaoPatrimonios.Applications.Services
             Validar.ValidarNome(dto.NomeLocal);
 
             Localizacao localizacaoBanco = _repository.BuscarPorId(localizacaoId);
+
             if(localizacaoBanco == null)
             {
-                throw new DomainException("Localização não encontrada");
+                throw new DomainException("Localização não encontrada.");
             }
 
             Localizacao localExistente = _repository.BuscarPorNome(dto.NomeLocal, dto.AreaID);
 
-            if (localExistente == null)
+            if (localExistente != null)
             {
-                throw new DomainException("Já existe um local cadastrado com esse nome nessa área");
+                throw new DomainException("Já existe uma local cadastrado com esse nome nessa área.");
             }
 
             if (!_repository.AreaExiste(dto.AreaID))
             {
-                throw new DomainException("Área informada não existe");
+                throw new DomainException("Área informada não existe.");
             }
 
             localizacaoBanco.NomeLocal = dto.NomeLocal;
@@ -106,5 +109,7 @@ namespace GestaoPatrimonios.Applications.Services
 
             _repository.Atualizar(localizacaoBanco);
         }
+
+
     }
 }

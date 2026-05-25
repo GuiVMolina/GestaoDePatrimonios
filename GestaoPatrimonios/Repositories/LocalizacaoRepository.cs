@@ -15,17 +15,13 @@ namespace GestaoPatrimonios.Repositories
 
         public List<Localizacao> Listar()
         {
-            return _context.Localizacao.OrderBy(local => local.NomeLocal).ToList();
+            return _context.Localizacao
+                .OrderBy(localizacao =>  localizacao.NomeLocal).ToList();
         }
 
         public Localizacao BuscarPorId(Guid localizacaoId)
         {
             return _context.Localizacao.Find(localizacaoId);
-        }
-
-        public Localizacao BuscarPorNome(string nomeLocal, Guid areaId)
-        {
-            return _context.Localizacao.FirstOrDefault(local => local.NomeLocal.ToLower() == nomeLocal.ToLower() && local.AreaID == areaId);
         }
 
         public void Adicionar(Localizacao localizacao)
@@ -34,13 +30,24 @@ namespace GestaoPatrimonios.Repositories
             _context.SaveChanges();
         }
 
+        public bool AreaExiste(Guid areaId)
+        {
+            return _context.Area.Any(area => area.AreaID == areaId);
+        }
+
         public void Atualizar(Localizacao localizacao)
         {
-            if (localizacao == null) { return; }
+            if(localizacao == null)
+            {
+                return;
+            }
 
             Localizacao localizacaoBanco = _context.Localizacao.Find(localizacao.LocalizacaoID);
 
-            if (localizacaoBanco == null) { return; }
+            if(localizacaoBanco == null)
+            {
+                return;
+            }
 
             localizacaoBanco.NomeLocal = localizacao.NomeLocal;
             localizacaoBanco.LocalSAP = localizacao.LocalSAP;
@@ -50,9 +57,11 @@ namespace GestaoPatrimonios.Repositories
             _context.SaveChanges();
         }
 
-        public bool AreaExiste(Guid areaId)
+        public Localizacao BuscarPorNome(string nomeLocal, Guid areaId)
         {
-            return _context.Area.Any(area => area.AreaID == areaId);
+
+            return _context.Localizacao.FirstOrDefault(local => local.NomeLocal.ToLower() == nomeLocal.ToLower() && local.AreaID == areaId
+            );
         }
     }
 }

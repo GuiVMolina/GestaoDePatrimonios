@@ -1,6 +1,8 @@
 ﻿using GestaoPatrimonios.Applications.Services;
-using GestaoPatrimonios.DTOs.EnderecoDto;
 using GestaoPatrimonios.Exceptions;
+using GestaoPatrimonios_v1.DTOs.EnderecoDto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoPatrimonios.Controllers
@@ -16,21 +18,21 @@ namespace GestaoPatrimonios.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<List<ListarEnderecoDto>> Listar()
         {
             List<ListarEnderecoDto> enderecos = _service.Listar();
-
             return Ok(enderecos);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<ListarEnderecoDto> BuscarPorId(Guid id)
         {
             try
             {
                 ListarEnderecoDto endereco = _service.BuscarPorId(id);
-
                 return Ok(endereco);
             }
             catch (DomainException ex)
@@ -39,6 +41,7 @@ namespace GestaoPatrimonios.Controllers
             }
         }
 
+        [Authorize(Roles = "Coordenador")]
         [HttpPost]
         public ActionResult Adicionar(CriarEnderecoDto dto)
         {
@@ -53,6 +56,7 @@ namespace GestaoPatrimonios.Controllers
             }
         }
 
+        [Authorize(Roles = "Coordenador")]
         [HttpPut("{id}")]
         public ActionResult Atualizar(Guid id, CriarEnderecoDto dto)
         {

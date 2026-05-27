@@ -129,3 +129,5 @@ const Patrimonio = () => {
     </>
   );
 };
+
+export default Patrimonio;

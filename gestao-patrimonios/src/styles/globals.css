@@ -1,42 +1,289 @@
+/* ==========================================================================
+   1. VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
+   ========================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --background: #eff1f4;
+  --branco: #ffffff;
+  --preto: #171717;
+  --cinza: #c0c0c0;
+  --cinza-escuro: #8f8f8f;
+  --vermelho: #ff0000;
+  --vermelho-escuro: #ce2c2c;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-Montserrat), sans-serif;
 }
 
-a {
-  color: inherit;
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--branco) var(--vermelho-escuro);
+}
+
+html[data-scroll-behavior="smooth"] {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   2. LAYOUT E ESTRUTURA (Estrutura principal da página)
+   ========================================================================== */
+main {
+  min-height: 100vh;
+  background-color: var(--background);
+  background-attachment: fixed;
+  background-image: radial-gradient(
+    circle at bottom,
+    color-mix(in srgb, var(--branco) 75%, transparent) 0%,
+    var(--background) 100%
+  );
+}
+
+.header {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  color: var(--branco);
+  background-color: var(--vermelho-escuro);
+  background-image: linear-gradient(
+    135deg,
+    var(--vermelho),
+    var(--vermelho-escuro)
+  );
+}
+
+/* Flex e Grid Layouts */
+.row,
+.side {
+  display: flex;
+  align-items: center;
+}
+
+.row {
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.side {
+  gap: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.caixa {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  text-align: center;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* ==========================================================================
+   3. COMPONENTES (Cards, Botões e Imagens)
+   ========================================================================== */
+.card {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 30px;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(var(--branco)),
+    linear-gradient(135deg, var(--branco) 25%, var(--vermelho-escuro));
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+/* Botões */
+.btn,
+.btn2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.btn {
+  border: 0;
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--branco);
+  background-color: var(--vermelho);
+  background-image: linear-gradient(
+    135deg,
+    var(--vermelho),
+    var(--vermelho-escuro)
+  );
+}
+
+.btn2 {
+  width: 40px;
+  height: 40px;
+  padding: 15px;
+  font-size: 1.5rem;
+  color: var(--vermelho-escuro);
+  background-color: transparent;
+  border: 1px solid var(--vermelho-escuro);
+}
+
+.bgc {
+  height: 60px;
+  align-items: center;
+  border-radius: 15px;
+  color: var(--cinza-escuro);
+  background-color: var(--branco);
+  transition: color 0.1s ease-in-out;
+}
+
+.bgc:hover {
+  color: var(--preto);
+}
+
+/* Imagens e Logos */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user {
+  width: 40px;
+  height: 40px;
+  border-radius: 15px;
+}
+
+.logo {
+  height: 50%;
+  box-shadow: 0 5px 15px color-mix(in srgb, var(--preto) 25%, transparent);
+}
+
+/* ==========================================================================
+   4. FORMULÁRIOS
+   ========================================================================== */
+.form,
+.campo_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  gap: 20px;
+  align-items: center;
+}
+
+.campo_form {
+  gap: 5px;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid var(--cinza);
+  outline: 2px solid transparent;
+  transition:
+    border 0.15s ease-in-out,
+    outline 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.input:focus {
+  border: 1px solid var(--branco);
+  outline: 2px solid var(--vermelho-escuro);
+  box-shadow: 0 0 20px
+    color-mix(in srgb, var(--vermelho-escuro) 25%, transparent);
+}
+
+.select {
+  border: 0;
+  outline: none;
+  border-radius: 15px;
+  color: var(--branco);
+  appearance: base-select;
+  background-color: transparent;
+}
+
+.select::picker(select) {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  appearance: base-select;
+  background-color: var(--branco);
+  border: 2px solid var(--vermelho-escuro);
+  box-shadow: 0 10px 20px
+    color-mix(in srgb, var(--vermelho-escuro) 25%, transparent);
+}
+
+::checkmark {
+  display: none;
+}
+
+/* ==========================================================================
+   5. TEXTOS E UTILITÁRIOS
+   ========================================================================== */
+.icon {
+  border: 0;
+  font-size: 1.5rem;
+  background-color: transparent;
+}
+
+.text {
+  font-size: 0.75rem;
+}
+
+.redirect {
+  text-decoration: none;
+  color: color-mix(in srgb, var(--preto), var(--vermelho-escuro));
+}
+
+.line {
+  border: 0;
+  width: 100%;
+  height: 1px;
+  margin: 15px 0;
+  border-radius: 15px;
+  background-color: var(--cinza);
+}
+
+/* Classes Utilitárias (Helpers) */
+.min_height {
+  padding: 40px 0;
+  min-height: 85vh;
+}
+.full_width {
+  width: 100%;
+}
+.small_gap {
+  gap: 10px;
+}
+.gap {
+  gap: 40px;
+}
+.end {
+  align-items: flex-end;
+}
+
+/* ==========================================================================
+   6. CONTAINER
+   ========================================================================== */
+.container {
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
+  min-height: inherit;
+  align-items: center;
+  justify-content: space-between;
 }

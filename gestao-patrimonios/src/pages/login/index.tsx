@@ -1,5 +1,6 @@
 import Button from "@/components/button/button";
 import styles from "./login.module.css";
+import Link from "next/link";
 import { erro, notificacao } from "@/components/utils/toast";
 import { useRouter } from "next/router";
 import { login } from "@/pages/api/auth";
@@ -80,8 +81,9 @@ const Login = () => {
                 👁
               </Button>
             </div>
+            <Link href="/home" className="small_link">Esqueceu sua senha?</Link>
           </div>
-          <Button type="submit" className="btn">
+          <Button type="submit" className="full_width">
             Entrar
           </Button>
         </form>

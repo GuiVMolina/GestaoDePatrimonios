@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="container row">
+      <div className="container">
         {/* <Link href="/home"> */}
           <img src="./imgs/logo_senai.png" alt="Logo SENAI" className="logo" />
         {/* </Link> */}
@@ -36,7 +36,7 @@ const Header = () => {
         {estaAutenticado && usuario ? (
           <User nome={usuario.nome} email={usuario.email} img={usuario.img} />
         ) : (
-          <Link href="/login" className="btn2">
+          <Link href="/login" className="link">
             Logar
           </Link>
         )}

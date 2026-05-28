@@ -5,8 +5,10 @@ type ButtonProps = ComponentPropsWithoutRef<"button"> & {
 };
 
 const Botoes = ({ className, children, onClick, ...props }: ButtonProps) => {
+  const combinedClasses = `btn ${className || ""}`.trim();
+
   return (
-    <button className={className} onClick={onClick}>
+    <button className={combinedClasses} {...props} onClick={onClick}>
       {children}
     </button>
   );

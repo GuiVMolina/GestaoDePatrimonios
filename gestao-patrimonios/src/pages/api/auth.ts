@@ -9,7 +9,7 @@ export interface UsuarioToken {
   email: string;
   nif: string;
   role?: string;
-  img?: string;
+  img?: string; // Mantenha aqui se pretender usar futuramente
 }
 
 export async function login(nif: string, senha: string) {
@@ -33,10 +33,23 @@ export async function logout() {
 export function obterUsuarioAutenticado(): UsuarioToken | null {
   try {
     const token = secureLocalStorage.getItem("Token");
+    
     if (token && typeof token === "string") {
-      const decoded = jwtDecode<UsuarioToken>(token);
-      console.log(decoded)
-      return decoded;
+      // 1. Decodificamos como 'any' ou um objeto genérico primeiro, 
+      // pois as chaves reais que vêm no JSON são strings de URLs.
+      const decoded = jwtDecode<any>(token);
+      
+      // 2. Fazemos o mapeamento manual das claims da API para a sua interface limpa
+      const usuario: UsuarioToken = {
+        id: decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/nameidentifier"],
+        nome: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        email: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+        nif: decoded["NIF"] || decoded["nif"], // Garante o mapeamento idependente do case da API
+        role: decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+        img: decoded["img"] || undefined // Caso a API passe a enviar futuramente
+      };
+
+      return usuario;
     }
   } catch (error) {
     console.error("Erro ao decodificar o token de sessão:", error);

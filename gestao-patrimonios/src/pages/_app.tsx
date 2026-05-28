@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { Montserrat } from "next/font/google";
 import type { AppProps } from "next/app";
 import "@/styles/globals.css";
@@ -11,6 +12,7 @@ const montserrat = Montserrat({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${montserrat.variable} font-sans`}>
+      <ToastContainer />
       <Component {...pageProps} />
     </main>
   );

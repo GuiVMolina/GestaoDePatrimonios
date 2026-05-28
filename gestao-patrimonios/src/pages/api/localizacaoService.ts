@@ -5,7 +5,16 @@ export async function listarLocalizacao() {
     const response = await api.get("Localizacao");
     return response.data;
   } catch (error: any) {
-    throw new Error(error.responde.data);
+    throw new Error(error.response.data);
+  }
+}
+
+export async function listarLocalId(id: number) {
+  try {
+    const response = await api.get("Localizacao/" + id);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
   }
 }
 

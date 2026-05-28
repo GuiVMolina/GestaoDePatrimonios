@@ -2,13 +2,15 @@
    1. VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
    ========================================================================== */
 :root {
-  --background: #eff1f4;
-  --branco: #ffffff;
-  --preto: #171717;
-  --cinza: #c0c0c0;
-  --cinza-escuro: #8f8f8f;
-  --vermelho: #ff0000;
-  --vermelho-escuro: #ce2c2c;
+  --background: hsl(215, 10%, 90%);
+  --branco: hsl(0, 0%, 100%);
+  --preto: hsl(0, 0%, 10%);
+  --cinza: hsl(0, 0%, 75%);
+  --cinza-escuro: hsl(0, 0%, 50%);
+  --vermelho: hsl(0, 100%, 50%);
+  --vermelho-escuro: hsl(0, 65%, 50%);
+  --verde: hsl(135, 100%, 25%);
+  --verde-claro: hsl(135, 85%, 85%);
 }
 
 * {
@@ -28,23 +30,24 @@ html[data-scroll-behavior="smooth"] {
 }
 
 /* ==========================================================================
-   2. LAYOUT E ESTRUTURA (Estrutura principal da página)
+   2. LAYOUT E ESTRUTURA PRINCIPAL
    ========================================================================== */
 main {
   min-height: 100vh;
   background-color: var(--background);
-  background-attachment: fixed;
   background-image: radial-gradient(
     circle at bottom,
     color-mix(in srgb, var(--branco) 75%, transparent) 0%,
     var(--background) 100%
   );
+  background-attachment: fixed;
 }
 
 .header {
+  display: flex;
   width: 100%;
   height: 10vh;
-  display: flex;
+  min-height: 80px;
   color: var(--branco);
   background-color: var(--vermelho-escuro);
   background-image: linear-gradient(
@@ -54,47 +57,18 @@ main {
   );
 }
 
-/* Flex e Grid Layouts */
-.row,
-.side {
-  display: flex;
-  align-items: center;
-}
-
-.row {
-  gap: 10px;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.side {
-  gap: 10px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.caixa {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  list-style: none;
-  text-align: center;
-  text-decoration: none;
-}
-
 /* ==========================================================================
-   3. COMPONENTES (Cards, Botões e Imagens)
+   3. COMPONENTES
    ========================================================================== */
+
+/* Cards */
 .card {
-  gap: 20px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   padding: 40px;
-  border-radius: 30px;
   border: 2px solid transparent;
+  border-radius: 30px;
   background-image:
     linear-gradient(var(--branco)),
     linear-gradient(135deg, var(--branco) 25%, var(--vermelho-escuro));
@@ -108,16 +82,16 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 50px;
+  padding: 15px;
   border-radius: 15px;
+  text-decoration: none;
 }
 
 .btn {
-  border: 0;
-  width: 100%;
-  height: 50px;
-  padding: 15px;
-  font-weight: 500;
+  min-width: 100px;
   font-size: 1.2rem;
+  font-weight: 500;
   color: var(--branco);
   background-color: var(--vermelho);
   background-image: linear-gradient(
@@ -125,24 +99,50 @@ main {
     var(--vermelho),
     var(--vermelho-escuro)
   );
+  border: 0;
 }
 
 .btn2 {
-  width: 40px;
-  height: 40px;
-  padding: 15px;
+  min-width: 50px;
   font-size: 1.5rem;
+  font-weight: 600;
   color: var(--vermelho-escuro);
-  background-color: transparent;
-  border: 1px solid var(--vermelho-escuro);
+  background: transparent;
+  border: 2px solid var(--vermelho-escuro);
+}
+
+/* Links e Elementos Interativos */
+.link {
+  padding: 10px 20px;
+  font-weight: 600;
+  color: var(--vermelho-escuro);
+  background: 0;
+  background-color: var(--branco);
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.small_link {
+  display: flex;
+  align-self: flex-end;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--vermelho-escuro);
+  text-decoration: none;
+}
+
+.redirect {
+  color: color-mix(in srgb, var(--preto), var(--vermelho-escuro));
+  text-decoration: none;
 }
 
 .bgc {
-  height: 60px;
+  display: flex; /* Adicionado para garantir o align-items */
   align-items: center;
-  border-radius: 15px;
+  min-height: 60px;
   color: var(--cinza-escuro);
   background-color: var(--branco);
+  border-radius: 15px;
   transition: color 0.1s ease-in-out;
 }
 
@@ -150,7 +150,7 @@ main {
   color: var(--preto);
 }
 
-/* Imagens e Logos */
+/* Imagens, Logos e Ícones */
 .image {
   width: 100%;
   height: 100%;
@@ -166,6 +166,41 @@ main {
 .logo {
   height: 50%;
   box-shadow: 0 5px 15px color-mix(in srgb, var(--preto) 25%, transparent);
+}
+
+.icon {
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: 0;
+}
+
+/* Elementos de Texto Gerais */
+.title {
+  color: var(--preto);
+}
+
+.label {
+  font-weight: 500;
+}
+
+.text {
+  font-size: 0.75rem;
+}
+
+.color {
+  padding: 10px;
+  color: var(--verde);
+  background-color: var(--verde-claro);
+  border-radius: 10px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  margin: 15px 0;
+  background-color: var(--cinza);
+  border: 0;
+  border-radius: 15px;
 }
 
 /* ==========================================================================
@@ -191,8 +226,8 @@ main {
   width: 100%;
   height: 50px;
   padding: 15px;
-  border-radius: 15px;
   border: 1px solid var(--cinza);
+  border-radius: 15px;
   outline: 2px solid transparent;
   transition:
     border 0.15s ease-in-out,
@@ -208,82 +243,111 @@ main {
 }
 
 .select {
+  color: var(--branco);
+  background-color: transparent;
   border: 0;
   outline: none;
   border-radius: 15px;
-  color: var(--branco);
   appearance: base-select;
-  background-color: transparent;
 }
 
 .select::picker(select) {
   margin-top: 10px;
   padding: 5px 10px;
-  border-radius: 15px;
-  appearance: base-select;
+  color: var(--preto); /* Adicionado por segurança para legibilidade */
   background-color: var(--branco);
   border: 2px solid var(--vermelho-escuro);
+  border-radius: 15px;
   box-shadow: 0 10px 20px
     color-mix(in srgb, var(--vermelho-escuro) 25%, transparent);
+  appearance: base-select;
 }
 
 ::checkmark {
   display: none;
 }
+/* ==========================================================================
+   5. LIB EXTERNA (Toastify Customization)
+   ========================================================================== */
+.Toastify__toast {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.Toastify__progress-bar--success {
+  background: linear-gradient(to right, var(--verde), var(--verde-claro)) !important;
+}
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: var(--verde) !important;
+}
 
 /* ==========================================================================
-   5. TEXTOS E UTILITÁRIOS
+   6. CLASSES DE ORGANIZAÇÃO, COMPORTAMENTO E HELPERS (ESTRUTURAIS)
    ========================================================================== */
-.icon {
-  border: 0;
-  font-size: 1.5rem;
-  background-color: transparent;
-}
 
-.text {
-  font-size: 0.75rem;
-}
-
-.redirect {
-  text-decoration: none;
-  color: color-mix(in srgb, var(--preto), var(--vermelho-escuro));
-}
-
-.line {
-  border: 0;
-  width: 100%;
-  height: 1px;
-  margin: 15px 0;
-  border-radius: 15px;
-  background-color: var(--cinza);
-}
-
-/* Classes Utilitárias (Helpers) */
-.min_height {
-  padding: 40px 0;
-  min-height: 85vh;
-}
+/* Modificadores de Dimensão */
 .full_width {
   width: 100%;
 }
+
+.min_height {
+  min-height: 85vh;
+  padding: 40px 0;
+}
+
+/* Layouts Flex / Grid Base */
+.container {
+  display: flex;
+  width: 90%;
+  min-height: inherit;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row,
+.side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.row {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.caixa {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  align-items: center;
+  padding: 0 20px;
+  list-style: none;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Modificadores de Espaçamento (Gaps) */
 .small_gap {
   gap: 10px;
 }
+
 .gap {
   gap: 40px;
 }
-.end {
-  align-items: flex-end;
+
+/* Modificadores de Alinhamento Fino */
+.start {
+  align-self: flex-start;
 }
 
-/* ==========================================================================
-   6. CONTAINER
-   ========================================================================== */
-.container {
-  width: 90%;
-  display: flex;
-  margin: 0 auto;
-  min-height: inherit;
-  align-items: center;
-  justify-content: space-between;
+.end {
+  align-items: flex-end;
 }

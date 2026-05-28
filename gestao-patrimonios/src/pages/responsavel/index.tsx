@@ -15,57 +15,57 @@ const Responsavel = () => {
               <form action="" className="form">
                 <div className="row">
                   <div className="campo_form">
-                    <label htmlFor="">Nome:</label>
+                    <label htmlFor="" className="label">Nome:</label>
                     <input type="text" className="input" />
                   </div>
                   <div className="campo_form">
-                    <label htmlFor="">NIF:</label>
+                    <label htmlFor="" className="label">NIF:</label>
                     <input type="text" className="input" />
                   </div>
                   <div className="campo_form">
-                    <label htmlFor="">RG:</label>
+                    <label htmlFor="" className="label">RG:</label>
                     <input type="text" className="input" />
                   </div>
                   <div className="campo_form">
-                    <label htmlFor="">CPF:</label>
-                    <input type="text" className="input" />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="campo_form">
-                    <label htmlFor="">N° Carteira de trabalho:</label>
-                    <input type="text" className="input" />
-                  </div>
-                  <div className="campo_form">
-                    <label htmlFor="">Email:</label>
-                    <input type="text" className="input" />
-                  </div>
-                  <div className="campo_form">
-                    <label htmlFor="">CEP:</label>
+                    <label htmlFor="" className="label">CPF:</label>
                     <input type="text" className="input" />
                   </div>
                 </div>
                 <div className="row">
                   <div className="campo_form">
-                    <label htmlFor="">Logradouro:</label>
+                    <label htmlFor="" className="label">N° Carteira de trabalho:</label>
                     <input type="text" className="input" />
                   </div>
                   <div className="campo_form">
-                    <label htmlFor="">Complemento:</label>
+                    <label htmlFor="" className="label">Email:</label>
                     <input type="text" className="input" />
                   </div>
                   <div className="campo_form">
-                    <label htmlFor="">Bairro:</label>
+                    <label htmlFor="" className="label">CEP:</label>
+                    <input type="text" className="input" />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="campo_form">
+                    <label htmlFor="" className="label">Logradouro:</label>
+                    <input type="text" className="input" />
+                  </div>
+                  <div className="campo_form">
+                    <label htmlFor="" className="label">Complemento:</label>
+                    <input type="text" className="input" />
+                  </div>
+                  <div className="campo_form">
+                    <label htmlFor="" className="label">Bairro:</label>
                     <input type="text" className="input" />
                   </div>
                 </div>
                 <div className="row end">
                   <div className="campo_form">
-                    <label htmlFor="">Cidade:</label>
+                    <label htmlFor="" className="label">Cidade:</label>
                     <input type="text" className="input" />
                   </div>
                   <div className="campo_form">
-                    <label htmlFor="">Estado:</label>
+                    <label htmlFor="" className="label">Estado:</label>
                     <input type="text" className="input" />
                   </div>
                   <Button className="btn">Salvar</Button>

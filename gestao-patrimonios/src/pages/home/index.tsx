@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import Header from "@/components/header/header";
 import Lista from "@/components/lista/lista";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -17,10 +18,13 @@ const Home = () => {
                   placeholder="Pesquise o ambiente..."
                   className="input"
                 />
+                <Link href="/local/novo" className="btn">
+                  + Local
+                </Link>
                 <Button className="btn2">=</Button>
               </div>
             </div>
-            <Lista />
+            <Lista pages="home" />
           </div>
         </section>
       </main>

@@ -1,0 +1,53 @@
+#login_page {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+}
+
+#login_banner {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+#login_form {
+  align-items: center;
+  justify-content: center;
+}
+
+#login_banner_info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0 80px;
+  text-align: center;
+  align-items: center;
+  color: var(--branco);
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+@media (width <= 768px) {
+  #login_page {
+    height: auto;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+  }
+
+  #login_banner {
+    height: 320px;
+  }
+
+  #login_banner_info {
+    padding: 0 20px;
+  }
+
+  #login_form {
+    align-items: stretch;
+  }
+}

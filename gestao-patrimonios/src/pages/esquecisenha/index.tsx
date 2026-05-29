@@ -1,6 +1,5 @@
 import Button from "@/components/button/button";
-import styles from "./login.module.css";
-import Link from "next/link";
+import styles from "./esquecisenha.module.css";
 import { erro, notificacao } from "@/components/utils/toast";
 import { useRouter } from "next/router";
 import { login } from "@/pages/api/auth";
@@ -50,41 +49,25 @@ const Login = () => {
         aria-label="Formulário de login"
       >
         <form className="form" onSubmit={autenticar}>
-          <h1>Login</h1>
+          <h1>Esqueci a Senha</h1>
+          
           <div className="campo_form">
             <label htmlFor="nif">NIF:</label>
-            <input
-              type="text"
-              id="nif"
-              name="nif"
-              placeholder="Insira o seu NIF"
-              className="input"
-              value={nif}
-              onChange={(e) => setNIF(e.target.value)}
-              required={true}
-            />
-          </div>
-          <div className="campo_form">
-            <label htmlFor="senha">Senha:</label>
             <div className="row">
               <input
-                type="password"
-                id="senha"
-                name="senha"
-                placeholder="Insira a sua senha"
+                type="text"
+                id="nif"
+                name="nif"
+                placeholder="Insira o seu nif"
                 className="input"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 required={true}
               />
-              <Button type="button" className="icon" aria-label="Mostrar senha">
-                👁
-              </Button>
             </div>
-            <Link href="/esquecisenha" className="small_link">Esqueceu sua senha?</Link>
           </div>
           <Button type="submit" className="full_width">
-            Entrar
+            Enviar
           </Button>
         </form>
       </section>

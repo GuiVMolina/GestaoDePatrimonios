@@ -9,7 +9,7 @@ export async function listarLocalizacao() {
   }
 }
 
-export async function listarLocalId(id: number) {
+export async function listarLocalId(id: any) {
   try {
     const response = await api.get("Localizacao/" + id);
     return response.data;

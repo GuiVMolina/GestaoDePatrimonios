@@ -22,14 +22,23 @@ const Header = () => {
     <header className="header">
       <div className="container">
         {/* <Link href="/home"> */}
-          <img src="./imgs/logo_senai.png" alt="Logo SENAI" className="logo" />
+        <img src="/imgs/logo_senai.png" alt="Logo SENAI" className="logo" />
         {/* </Link> */}
         <select name="Ambientes" id="ambientes" className="select">
-          <option value="Ambientes" disabled selected>
+          <option value="Ambientes">
+          {/* <option value="Ambientes" disabled selected> */}
             Ambientes
           </option>
-          <option value="Ambientes"><Link href="/area" className="redirect">Área</Link></option>
-          <option value="Ambientes"><Link href="/home" className="redirect">Local</Link></option>
+          <option value="Ambientes">
+            {/* <Link href="/area" className="redirect"> */}
+            Área
+            {/* </Link> */}
+          </option>
+          <option value="Ambientes">
+            {/* <Link href="/home" className="redirect"> */}
+            Local
+            {/* </Link> */}
+          </option>
         </select>
         <h3>Patrimônios</h3>
 

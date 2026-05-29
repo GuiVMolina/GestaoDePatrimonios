@@ -1,4 +1,4 @@
-import { listarPorNIF } from "@/pages/api/userService";
+import { listarPorNIF } from "@/pages/api/usuarioService";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { erro } from "../utils/toast";
@@ -16,7 +16,7 @@ const User = ({ nome, email, img }: UserProps) => {
 
   async function listarUser() {
     try {
-      const response = await listarPorNIF(Number(id));
+      const response = await listarPorNIF(id);
       setUser(response);
     } catch (error: any) {
       erro(error.message);
@@ -24,8 +24,10 @@ const User = ({ nome, email, img }: UserProps) => {
   }
 
   useEffect(() => {
-    listarUser();
-  }, []);
+    if (id) {
+      listarUser();
+    }
+  }, [id]);
 
   return (
     <div className="side">
@@ -34,7 +36,7 @@ const User = ({ nome, email, img }: UserProps) => {
       ) : (
         <div className="side">
           <img
-            src="./imgs/default_avatar.png"
+            src="/imgs/default_avatar.png"
             alt="Avatar padrão"
             className="user"
           />

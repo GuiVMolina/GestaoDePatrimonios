@@ -1,10 +1,11 @@
 import Button from "@/components/button/button";
 import Header from "@/components/header/header";
 import Lista from "@/components/lista/lista";
-import { erro } from "@/components/utils/toast";
-import { listarLocalId } from "@/pages/api/localizacaoService";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { verificarAutenticacao } from "@/components/utils/auth";
+import { listarLocalId } from "@/pages/api/localizacaoService";
+import { useParams, useRouter } from "next/navigation";
+import { erro } from "@/components/utils/toast";
 import { useEffect, useState } from "react";
 
 type LocalProps = {
@@ -18,12 +19,15 @@ const Local = () => {
     nifLocal: "Carregando...",
   });
 
+  const [estaAutenticado, setEstaAtutenticado] = useState(false);
+  const router = useRouter();
+
   const params = useParams();
   const id = params?.id;
 
   async function listarLocal() {
     try {
-      const response = await listarLocalId(Number(id));
+      const response = await listarLocalId(id);
       setLocal(response);
     } catch (error: any) {
       erro(error.message);
@@ -36,8 +40,17 @@ const Local = () => {
 
   useEffect(() => {
     if (!id) return;
+    if (!verificarAutenticacao()) {
+      router.push("/login");
+      return;
+    }
+    setEstaAtutenticado(true);
     listarLocal();
   }, [id]);
+
+  if (!estaAutenticado) {
+    return null;
+  }
 
   return (
     <>
@@ -48,7 +61,7 @@ const Local = () => {
             ← Voltar
           </Link>
           <div className="row full_width">
-            <h1>{local ? local.nomeLocal : "Erro"}</h1>
+            <h1>{local.nomeLocal}</h1>
             <p>{local.nifLocal}</p>
             <div className="side">
               <input
@@ -60,7 +73,7 @@ const Local = () => {
               <Button className="btn2">=</Button>
             </div>
           </div>
-          <Lista pages="local" id={Number(id)} />
+          <Lista pages="local" id={id} />
         </div>
       </section>
     </>

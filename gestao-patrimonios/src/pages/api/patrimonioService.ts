@@ -1,6 +1,15 @@
 import { api } from "./api";
 
-export async function listarPatrimonioId(id: number) {
+export async function listarPatrimonios() {
+  try {
+    const response = await api.get("Patrimonio");
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+}
+
+export async function listarPatrimonioId(id: any) {
   try {
     const response = await api.get("Patrimonio/" + id);
     return response.data;
@@ -9,20 +18,22 @@ export async function listarPatrimonioId(id: number) {
   }
 }
 
-export async function listarHistoricoPatrimonio(patrimoniodID: number) {
+export async function listarPatrimoniosPorLocal(id: string) {
   try {
-    const response = await api.get(`Patrimonio/${patrimoniodID}/historico`);
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data || error.message);
-  }
-}
+    const response = await api.get("Patrimonio");
+    const todosOsPatrimonios = response.data;
 
-export async function listarPatrimoniosPorLocal(localizacaoID: number) {
-  try {
-    const response = await api.get(`Localizacao/${localizacaoID}/patrimonios`);
-    return response.data;
+    if (Array.isArray(todosOsPatrimonios)) {
+      console.log("Dados recebidos da API:", todosOsPatrimonios[0]);
+
+      return todosOsPatrimonios.filter(
+        (patrimonio: any) =>
+          patrimonio.localizacaoID === id || patrimonio.LocalizacaoID === id,
+      );
+    }
+
+    return [];
   } catch (error: any) {
-    throw new Error(error.response?.data || error.message);
+    throw new Error(error.response.data);
   }
 }

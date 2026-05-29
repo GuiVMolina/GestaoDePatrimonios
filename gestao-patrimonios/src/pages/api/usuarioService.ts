@@ -1,6 +1,6 @@
 import { api } from "./api";
 
-export async function listarPorNIF(id: number) {
+export async function listarPorNIF(id: any) {
   try {
     const response = await api.get("Usuario/" + id);
 

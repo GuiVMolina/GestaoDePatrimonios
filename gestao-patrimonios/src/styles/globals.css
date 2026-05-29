@@ -89,7 +89,7 @@ main {
 }
 
 .btn {
-  min-width: 100px;
+  min-width: 80px;
   font-size: 1.2rem;
   font-weight: 500;
   color: var(--branco);
@@ -137,7 +137,7 @@ main {
 }
 
 .bgc {
-  display: flex; /* Adicionado para garantir o align-items */
+  display: flex;
   align-items: center;
   min-height: 60px;
   color: var(--cinza-escuro);
@@ -321,6 +321,10 @@ main {
 .column {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.center {
   justify-content: center;
 }
 

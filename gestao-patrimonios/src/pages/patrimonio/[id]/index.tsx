@@ -47,19 +47,29 @@ const Patrimonio = () => {
             <ul className="caixa bgc row">
               <li className="column">
                 <p>Denominação</p>
-                <h3 className="title">{patrimonio?.nomePatrimonio}</h3>
+                <h3 className="title">
+                  {patrimonio?.nomePatrimonio
+                    ? patrimonio?.nomePatrimonio
+                    : "N/A"}
+                </h3>
               </li>
               <li className="column">
                 <p>Tipo</p>
-                <h3 className="title">{patrimonio?.tipo}</h3>
+                <h3 className="title">
+                  {patrimonio?.tipo ? patrimonio?.tipo : "N/A"}
+                </h3>
               </li>
               <li className="column">
                 <p>Data Transferência</p>
-                <h3 className="title">{patrimonio?.data}</h3>
+                <h3 className="title">
+                  {patrimonio?.data ? patrimonio?.data : "N/A"}
+                </h3>
               </li>
               <li className="column">
                 <p>Local Atual</p>
-                <h3 className="title">{patrimonio?.localAtual}</h3>
+                <h3 className="title">
+                  {patrimonio?.localAtual ? patrimonio?.localAtual : "N/A"}
+                </h3>
               </li>
               <li className="column">
                 <p>Status Atual</p>

@@ -18,7 +18,7 @@ const Home = () => {
                   placeholder="Pesquise o ambiente..."
                   className="input"
                 />
-                <Link href="/local/novo" className="btn">
+                <Link href="/local/novo" className="btn full_width">
                   + Local
                 </Link>
                 <Button className="btn2">=</Button>

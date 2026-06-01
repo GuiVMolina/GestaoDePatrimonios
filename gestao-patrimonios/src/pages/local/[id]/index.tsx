@@ -7,6 +7,7 @@ import { listarLocalId } from "@/pages/api/localizacaoService";
 import { useParams, useRouter } from "next/navigation";
 import { erro } from "@/components/utils/toast";
 import { useEffect, useState } from "react";
+import { ArrowBigLeft } from "lucide-react";
 
 type LocalProps = {
   nomeLocal: string;
@@ -57,8 +58,8 @@ const Local = () => {
       <Header />
       <section className="min_height">
         <div className="container column gap">
-          <Link href="/home" className="btn start">
-            ← Voltar
+          <Link href="/home" className="btn start small_gap">
+            <ArrowBigLeft /> Voltar
           </Link>
           <div className="row full_width">
             <h1>{local.nomeLocal}</h1>

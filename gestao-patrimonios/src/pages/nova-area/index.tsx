@@ -1,6 +1,7 @@
 import Button from "@/components/button/button";
 import Header from "@/components/header/header";
 import Lista from "@/components/lista/lista";
+import { ArrowBigLeft } from "lucide-react";
 import Link from "next/link";
 
 const Area = () => {
@@ -10,8 +11,8 @@ const Area = () => {
         <Header />
         <section className="min_height">
           <div className="container column gap">
-            <Link href="/home" className="btn start">
-              ← Voltar
+            <Link href="/home" className="btn start small_gap">
+              <ArrowBigLeft /> Voltar
             </Link>
             <h1>Área</h1>
             <article className="card full_width">

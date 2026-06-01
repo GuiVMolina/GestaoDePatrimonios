@@ -37,3 +37,20 @@ export async function listarPatrimoniosPorLocal(id: string) {
     throw new Error(error.response.data);
   }
 }
+
+export async function importarPatrimonioCsv(arquivo: File) {
+  try {
+    const formData = new FormData();
+    formData.append("arquivoCsv:", arquivo);
+
+    await api.post("Patrimonio/importar-csv", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    await api.post("Patrimonio/importar-csv");
+  } catch (error: any) {
+    throw new Error(error.response.data);
+  }
+}

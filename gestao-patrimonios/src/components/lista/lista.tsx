@@ -5,6 +5,7 @@ import { listarAreaELocalizacao } from "@/pages/api/localizacaoService";
 import { listarHistorico } from "@/pages/api/logService";
 import { useEffect, useState } from "react";
 import { erro } from "../utils/toast";
+import { Info, Pencil } from "lucide-react";
 
 type ListaProps = {
   pages?: string;
@@ -124,7 +125,6 @@ const Lista = ({ pages, id }: ListaProps) => {
     setPaginaAtual(1);
   }, [pages, id]);
 
-  // ADDED RETURN STATEMENT HERE
   return (
     <div className="column full_width small_gap">
       {pages === "home" && (
@@ -199,8 +199,12 @@ const Lista = ({ pages, id }: ListaProps) => {
                 <span>{item.nomePatrimonio}</span>
                 <span>{item.data}</span>
                 <span className="side center">
-                  <Button className="link">Editar</Button>
-                  <Button className="link">Info</Button>
+                  <Link href="" className="icon">
+                    <Pencil />
+                  </Link>
+                  <Link href="" className="icon">
+                    <Info />
+                  </Link>
                 </span>
               </Link>
             ))

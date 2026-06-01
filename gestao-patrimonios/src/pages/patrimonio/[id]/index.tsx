@@ -5,6 +5,7 @@ import { listarPatrimonioId } from "../../api/patrimonioService";
 import { erro } from "@/components/utils/toast";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { ArrowBigLeft } from "lucide-react";
 
 type PatrimonioProps = {
   nif: string;
@@ -39,8 +40,8 @@ const Patrimonio = () => {
       <Header />
       <section className="min_height">
         <div className="container column gap">
-          <Link href="/home" className="btn start">
-            ← Voltar
+          <Link href="/home" className="btn start small_gap">
+            <ArrowBigLeft /> Voltar
           </Link>
           <div className="full_width column small_gap">
             <h1>Patrimônio: {patrimonio?.nif}</h1>

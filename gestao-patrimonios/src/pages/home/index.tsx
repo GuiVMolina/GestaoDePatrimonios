@@ -25,6 +25,7 @@ const Home = () => {
               </div>
             </div>
             <Lista pages="home" />
+            <Link href="/coordenador/patrimonio" className="btn">Importar CSV</Link>
           </div>
         </section>
       </main>
